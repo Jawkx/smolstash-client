@@ -19,7 +19,7 @@ export default function Index() {
 
 const CardWithForm = () => {
     return (
-        <Card className="w-full">
+        <Card className="w-[300] ">
             <CardHeader>
                 <CardTitle>Comfy Stash</CardTitle>
                 <CardDescription>Sign In</CardDescription>
@@ -36,8 +36,8 @@ const CardWithForm = () => {
                 </View>
             </CardContent>
             <CardFooter className="flex justify-between">
-                <Button variant="outline"><Text>SignUp</Text></Button>
-                <Button><Text>SignIn</Text></Button>
+                <Button variant="outline"><Text>Sign Up</Text></Button>
+                <Button><Text>Sign In</Text></Button>
             </CardFooter>
         </Card>
     )
