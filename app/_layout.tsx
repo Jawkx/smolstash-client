@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Slot } from "expo-router";
+import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -29,14 +30,51 @@ export const unstable_settings = {
 	initialRouteName: "(tabs)",
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+
+if (!publishableKey) {
+	throw new Error("Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file");
+}
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
-	const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+	const { isColorSchemeLoaded, loaded } = useInit(colorScheme, setColorScheme);
 
-	React.useEffect(() => {
+	if (!loaded) {
+		return null;
+	}
+
+	if (!isColorSchemeLoaded) {
+		return null;
+	}
+
+	return (
+		<ClerkProvider publishableKey={publishableKey}>
+			<ClerkLoaded>
+				<ThemeProvider
+					value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
+				>
+					<StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+					<Slot />
+				</ThemeProvider>
+			</ClerkLoaded>
+		</ClerkProvider>
+	);
+}
+
+const useInit = (
+	colorScheme: string,
+	setColorScheme: (scheme: "light" | "dark") => void,
+) => {
+	const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+	const [loaded, error] = useFonts({
+		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+		...FontAwesome.font,
+	});
+
+	useEffect(() => {
 		(async () => {
 			const theme = await AsyncStorage.getItem("theme");
 			if (Platform.OS === "web") {
@@ -51,7 +89,6 @@ export default function RootLayout() {
 			const colorTheme = theme === "dark" ? "dark" : "light";
 			if (colorTheme !== colorScheme) {
 				setColorScheme(colorTheme);
-
 				setIsColorSchemeLoaded(true);
 				return;
 			}
@@ -61,12 +98,6 @@ export default function RootLayout() {
 		});
 	}, [setColorScheme, colorScheme]);
 
-	const [loaded, error] = useFonts({
-		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-		...FontAwesome.font,
-	});
-
-	// Expo Router uses Error Boundaries to catch errors in the navigation tree.
 	useEffect(() => {
 		if (error) throw error;
 	}, [error]);
@@ -77,18 +108,8 @@ export default function RootLayout() {
 		}
 	}, [loaded]);
 
-	if (!loaded) {
-		return null;
-	}
-
-	if (!isColorSchemeLoaded) {
-		return null;
-	}
-
-	return (
-		<ThemeProvider value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}>
-			<StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-			<Slot />
-		</ThemeProvider>
-	);
-}
+	return {
+		isColorSchemeLoaded,
+		loaded,
+	};
+};
