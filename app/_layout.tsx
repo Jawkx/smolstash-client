@@ -30,7 +30,7 @@ export const unstable_settings = {
 	initialRouteName: "(tabs)",
 };
 
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 if (!publishableKey) {
 	throw new Error("Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file");
@@ -39,7 +39,7 @@ if (!publishableKey) {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-	const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
+	const { colorScheme, setColorScheme } = useColorScheme();
 	const { isColorSchemeLoaded, loaded } = useInit(colorScheme, setColorScheme);
 
 	if (!loaded) {
@@ -51,12 +51,11 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ClerkProvider publishableKey={publishableKey}>
+		<ClerkProvider publishableKey={publishableKey as string}>
 			<ClerkLoaded>
 				<ThemeProvider
 					value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
 				>
-					<StatusBar style={isDarkColorScheme ? "light" : "dark"} />
 					<Slot />
 				</ThemeProvider>
 			</ClerkLoaded>
