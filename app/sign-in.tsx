@@ -9,7 +9,7 @@ import { View } from "react-native";
 export default function SignIn() {
 	return (
 		<View className="bg-background w-full h-full">
-			<View className="mt-safe items-center justify-center h-screen w-screen">
+			<View className="mt-safe items-center justify-center w-full h-full">
 				<Card className="w-5/6 max-w-[500]">
 					<CardHeader>
 						<CardTitle>Sign In</CardTitle>

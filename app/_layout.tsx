@@ -8,11 +8,13 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@lib/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Slot } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { NAV_THEME } from "@lib/constants";
+import { Button } from "@/@/components/ui/button";
+import { Text } from "@/@/components/ui/text";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -56,7 +58,12 @@ export default function RootLayout() {
 				<ThemeProvider
 					value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
 				>
-					<Slot />
+					<View className="flex-1 bg-background">
+						<Stack screenOptions={{ headerShown: true }}>
+							<Stack.Screen name="index" />
+							<Stack.Screen name="sign-in" options={{ headerTitle: "" }} />
+						</Stack>
+					</View>
 				</ThemeProvider>
 			</ClerkLoaded>
 		</ClerkProvider>
