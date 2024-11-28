@@ -5,6 +5,10 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@rnr/*": ["./@rnr/*"]
+			"@ui/*": ["./@/components/ui/*"],
+			"@comp/*": ["./@/components/*"],
+			"@hooks/*": ["./@/hooks/*"],
+			"@lib/*": ["./@/lib/*"]
 		}
 	},
 	"include": [
