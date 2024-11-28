@@ -1,14 +1,9 @@
-import * as React from "react";
-import { Button } from "@rnr/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from "@rnr/components/ui/card";
-import { Input } from "@rnr/components/ui/input";
-import { Label } from "@rnr/components/ui/label";
-import { Text } from "@rnr/components/ui/text";
+import React from "react";
+import { Button } from "@ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
+import { Input } from "@ui/input";
+import { Label } from "@ui/label";
+import { Text } from "@ui/text";
 import { View } from "react-native";
 
 export default function SignIn() {

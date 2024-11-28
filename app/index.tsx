@@ -1,17 +1,8 @@
 import * as React from "react";
 import { View } from "react-native";
-import { Text } from "@rnr/components/ui/text";
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/@rnr/components/ui/card";
-import { Label } from "@/@rnr/components/ui/label";
-import { Input } from "@/@rnr/components/ui/input";
-import { Button } from "@/@rnr/components/ui/button";
 import { Link } from "expo-router";
+import { Button } from "@ui/button";
+import { Text } from "@ui/text";
 
 export default function HomePage() {
 	return (
@@ -23,25 +14,7 @@ export default function HomePage() {
 					</Button>
 				</Link>
 
-				<Card className="w-5/6 max-w-[500]">
-					<CardHeader>
-						<CardTitle>Access Stash</CardTitle>
-					</CardHeader>
-
-					<CardContent>
-						<View className="flex flex-col space-y-1.5">
-							<Label htmlFor="name">Stash Id</Label>
-							<Input id="stashId" placeholder="Fill in your Stash Id" />
-						</View>
-						<View className="h-3" />
-					</CardContent>
-
-					<CardFooter className="justify-end">
-						<Button>
-							<Text className="font-semibold">Access Stash</Text>
-						</Button>
-					</CardFooter>
-				</Card>
+				<Text>In Progress</Text>
 			</View>
 		</View>
 	);

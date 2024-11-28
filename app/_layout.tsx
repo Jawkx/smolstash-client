@@ -6,13 +6,13 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import { useColorScheme } from "@rnr/lib/useColorScheme";
-import { NAV_THEME } from "@rnr/lib/constants";
+import { useColorScheme } from "@lib/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Slot } from "expo-router";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import { NAV_THEME } from "@lib/constants";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
