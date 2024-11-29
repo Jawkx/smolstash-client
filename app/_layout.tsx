@@ -13,8 +13,6 @@ import { StatusBar } from "expo-status-bar";
 import { Stack, useRouter } from "expo-router";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { NAV_THEME } from "@lib/constants";
-import { Button } from "@/@/components/ui/button";
-import { Text } from "@/@/components/ui/text";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
