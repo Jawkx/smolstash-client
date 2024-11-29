@@ -17,15 +17,7 @@
 		"enabled": true
 	},
 	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"style": {
-				"useImportType": {
-					"level": "off"
-				}
-			}
-		}
+		"enabled": false
 	},
 	"javascript": {
 		"formatter": {
