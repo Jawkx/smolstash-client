@@ -2,7 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { LinkButton } from "@ui/button";
 import { Text } from "@ui/text";
-import { Link } from "expo-router";
 
 const IndexPage = () => {
 	return (
