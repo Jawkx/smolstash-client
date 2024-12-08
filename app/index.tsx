@@ -1,21 +1,27 @@
-import * as React from "react";
+import React from "react";
 import { View } from "react-native";
-import { Link } from "expo-router";
-import { Button } from "@ui/button";
+import { LinkButton } from "@ui/button";
 import { Text } from "@ui/text";
+import { Link } from "expo-router";
 
-export default function HomePage() {
+const IndexPage = () => {
 	return (
 		<View className="bg-background w-full h-full">
 			<View className="mt-safe flex-row justify-center items-center h-screen w-screen">
-				<Link href="/sign-in" className="absolute top-6 right-6">
-					<Button>
+				<View className="absolute top-6 right-6 flex-row">
+					<LinkButton href="/sign-in">
+						<Text className="font-semibold">Sign Up</Text>
+					</LinkButton>
+					<View className="w-2" />
+					<LinkButton href="/sign-in">
 						<Text className="font-semibold">Sign In</Text>
-					</Button>
-				</Link>
+					</LinkButton>
+				</View>
 
 				<Text>In Progress</Text>
 			</View>
 		</View>
 	);
-}
+};
+
+export default IndexPage;

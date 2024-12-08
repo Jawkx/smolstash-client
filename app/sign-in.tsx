@@ -1,32 +1,34 @@
-import React from "react";
-import { Button } from "@ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
+import { AnimatedView } from "@/components/ui/animated";
+import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 import { Input } from "@ui/input";
-import { Label } from "@ui/label";
-import { Text } from "@ui/text";
-import { View } from "react-native";
+import React from "react";
+import { FadeIn, SlideInDown } from "react-native-reanimated";
 
-export default function SignIn() {
+const SignInModal = () => {
+	const handleReturn = () => {};
+
 	return (
-		<View className="bg-background w-full h-full">
-			<View className="mt-safe items-center justify-center w-full h-full">
-				<Card className="w-5/6 max-w-[500]">
-					<CardHeader>
-						<CardTitle>Sign In</CardTitle>
-					</CardHeader>
-
-					<CardContent>
-						<View className="flex flex-col space-y-1.5">
-							<Label htmlFor="name">Email</Label>
-							<Input id="Email" placeholder="Your Email" />
-						</View>
-						<View className="h-3" />
-						<Button className="w-full">
-							<Text className="font-semibold">Get Login Code</Text>
-						</Button>
-					</CardContent>
-				</Card>
-			</View>
-		</View>
+		<AnimatedView
+			entering={FadeIn}
+			className="flex w-full h-full justify-center items-center bg-black/50"
+		>
+			<AnimatedView
+				entering={SlideInDown}
+				className="bg-background p-6 rounded-lg w-[80%] max-w-lg border-primary-foreground border-2 align-center"
+			>
+				<Input
+					className="border border-gray-300 rounded-lg px-4 py-2 mb-4"
+					placeholder="Email"
+					keyboardType="email-address"
+					autoCapitalize="none"
+				/>
+				<Button onPress={handleReturn}>
+					<Text className="font-semibold">Sign in</Text>
+				</Button>
+			</AnimatedView>
+		</AnimatedView>
 	);
-}
+};
+
+export default SignInModal;

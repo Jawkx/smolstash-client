@@ -27,7 +27,7 @@ export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
 	// Ensure that reloading on `/modal` keeps a back button present.
-	initialRouteName: "(tabs)",
+	initialRouteName: "index",
 };
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -57,9 +57,15 @@ export default function RootLayout() {
 					value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
 				>
 					<View className="flex-1 bg-background">
-						<Stack screenOptions={{ headerShown: true }}>
+						<Stack screenOptions={{ headerShown: false }}>
 							<Stack.Screen name="index" />
-							<Stack.Screen name="sign-in" options={{ headerTitle: "" }} />
+							<Stack.Screen
+								name="sign-in"
+								options={{
+									presentation: "transparentModal",
+									animation: "fade",
+								}}
+							/>
 						</Stack>
 					</View>
 				</ThemeProvider>
