@@ -1,8 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-import { Pressable } from "react-native";
+import { Platform, Pressable } from "react-native";
 import { cn } from "@lib/utils";
 import { TextClassContext } from "@comp/ui/text";
+import { Link, LinkProps } from "expo-router";
 
 const buttonVariants = cva(
 	"group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2",
@@ -86,7 +87,20 @@ const Button = React.forwardRef<
 		</TextClassContext.Provider>
 	);
 });
+
+interface LinkButtonProps extends ButtonProps {
+	href: LinkProps["href"];
+}
+
+const LinkButton = ({ href, ...props }: LinkButtonProps) => {
+	return (
+		<Link href={href} asChild={Platform.OS !== "web"}>
+			<Button {...props} />
+		</Link>
+	);
+};
+
 Button.displayName = "Button";
 
-export { Button, buttonTextVariants, buttonVariants };
+export { Button, LinkButton, buttonTextVariants, buttonVariants };
 export type { ButtonProps };
