@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"strict": true,
 		"paths": {
-			"@/*": ["./*"],
+			"@/*": ["./@/*"],
 			"@rnr/*": ["./@rnr/*"],
 			"@ui/*": ["./@/components/ui/*"],
 			"@comp/*": ["./@/components/*"],
