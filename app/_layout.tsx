@@ -1,4 +1,3 @@
-import "../global.css";
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DefaultTheme, ThemeProvider, Theme } from "@react-navigation/native";
@@ -13,6 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import { Stack, useRouter } from "expo-router";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { NAV_THEME } from "@lib/constants";
+import "../global.css";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -66,6 +66,7 @@ export default function RootLayout() {
 									animation: "fade",
 								}}
 							/>
+							<Stack.Screen name="stash" />
 						</Stack>
 					</View>
 				</ThemeProvider>
@@ -89,7 +90,9 @@ const useInit = (
 			const theme = await AsyncStorage.getItem("theme");
 			if (Platform.OS === "web") {
 				// Adds the background color to the html element to prevent white background on overscroll.
-				document.documentElement.classList.add("bg-background");
+				document.documentElement.classList.add(
+					theme === "dark" ? "dark-root" : "root",
+				);
 			}
 			if (!theme) {
 				AsyncStorage.setItem("theme", colorScheme);
