@@ -12,7 +12,7 @@ const IndexPage = () => {
 						<Text className="font-semibold">Sign Up</Text>
 					</LinkButton>
 					<View className="w-2" />
-					<LinkButton href="/sign-in">
+					<LinkButton href="/sign-in" variant="secondary">
 						<Text className="font-semibold">Sign In</Text>
 					</LinkButton>
 				</View>
