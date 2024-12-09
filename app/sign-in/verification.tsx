@@ -15,7 +15,7 @@ import { Button, LinkButton } from "@/components/ui/button";
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { Text } from "@/components/ui/text";
 
-const Verification = () => {
+const VerificationModal = () => {
 	const [verificationCode, setVerificationCode] = React.useState("");
 	const { signUp, setActive: signUpSetActive } = useSignUp();
 	const { signIn } = useSignIn();
@@ -80,4 +80,4 @@ const Verification = () => {
 	);
 };
 
-export default Verification;
+export default VerificationModal;
