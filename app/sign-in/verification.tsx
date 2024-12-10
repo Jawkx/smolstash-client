@@ -8,7 +8,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import {
+	Pressable,
+	StyleSheet,
+	TextInput,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import { FadeIn } from "react-native-reanimated";
 import { Input } from "@/components/ui/input";
 import { Button, LinkButton } from "@/components/ui/button";
@@ -78,14 +84,6 @@ const VerificationModal = () => {
 					</CardHeader>
 					<CardContent>
 						<CodeInput code={verificationCode} setCode={setVerificationCode} />
-						<Input
-							className="border border-gray-300 rounded-lg px-4 py-2 mb-4"
-							placeholder="verification code"
-							keyboardType="number-pad"
-							autoCapitalize="none"
-							value={verificationCode}
-							onChangeText={setVerificationCode}
-						/>
 					</CardContent>
 					<CardFooter className="flex-row justify-between">
 						<LinkButton href="../" variant="link">
@@ -118,15 +116,18 @@ const CodeInput = ({ code, setCode }: CodeInputProps) => {
 			<TextInput
 				ref={ref}
 				value={code}
+				autoFocus={true}
 				onChangeText={setCode}
 				keyboardType="number-pad"
 				returnKeyType="done"
 				textContentType="oneTimeCode"
 				maxLength={CODE_LENGTH}
-				className="hidden"
+				className="invisible"
 			/>
 
-			<Text onPress={handleOnPress}>{code}</Text>
+			<TouchableOpacity onPress={handleOnPress}>
+				<Text>{code}</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
