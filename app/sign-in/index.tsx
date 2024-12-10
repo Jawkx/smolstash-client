@@ -19,6 +19,7 @@ import { Link, useRouter } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { FadeIn, SlideInDown } from "react-native-reanimated";
+import { SignInFirstFactor, EmailCodeFactor } from "@clerk/types";
 
 const SignInModal = () => {
 	const [email, setEmail] = React.useState("");
@@ -29,18 +30,61 @@ const SignInModal = () => {
 
 	if (!signUp || !signIn) return null;
 
-	const handleSubmitForm = async () => {
+	const handleSignIn = async () => {
 		try {
-			await signUp.create({ emailAddress: email });
-			await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+			const { supportedFirstFactors } = await signIn.create({
+				identifier: email,
+			});
+
+			const isPhoneCodeFactor = (
+				factor: SignInFirstFactor,
+			): factor is EmailCodeFactor => {
+				return factor.strategy === "email_code";
+			};
+
+			const emailCodeFactor = supportedFirstFactors?.find(isPhoneCodeFactor);
+
+			if (emailCodeFactor) {
+				const { emailAddressId } = emailCodeFactor;
+
+				await signIn.prepareFirstFactor({
+					strategy: "email_code",
+					emailAddressId,
+				});
+			}
+
+			router.push({
+				pathname: "/sign-in/verification",
+				params: { variant: "sign_in" },
+			});
 		} catch (e) {
 			if (isClerkAPIResponseError(e)) {
 				const typedError = e as ClerkAPIResponseError;
 
+				typedError.errors.forEach((error) => {
+					if (error.code === "form_identifier_not_found") {
+						handleSignUp();
+					}
+				});
+			}
+		}
+	};
+
+	const handleSignUp = async () => {
+		try {
+			await signUp.create({ emailAddress: email });
+			await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+			router.push({
+				pathname: "/sign-in/verification",
+				params: { variant: "sign_up" },
+			});
+		} catch (e) {
+			if (isClerkAPIResponseError(e)) {
+				const typedError = e as ClerkAPIResponseError;
 				console.log(typedError.errors);
 			}
 		}
-		router.push("/sign-in/verification");
 	};
 
 	return (
@@ -68,7 +112,7 @@ const SignInModal = () => {
 						/>
 					</CardContent>
 					<CardFooter>
-						<Button onPress={handleSubmitForm}>
+						<Button onPress={handleSignIn}>
 							<Text className="font-semibold">Continue</Text>
 						</Button>
 					</CardFooter>

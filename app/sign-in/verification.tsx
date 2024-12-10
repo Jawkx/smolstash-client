@@ -1,6 +1,6 @@
 import React from "react";
 import { AnimatedView } from "@/components/ui/animated";
-import { Link, router } from "expo-router";
+import { Link, router, useLocalSearchParams, useRouter } from "expo-router";
 import {
 	Card,
 	CardContent,
@@ -17,32 +17,50 @@ import { Text } from "@/components/ui/text";
 
 const VerificationModal = () => {
 	const [verificationCode, setVerificationCode] = React.useState("");
+
 	const { signUp, setActive: signUpSetActive } = useSignUp();
 	const { signIn } = useSignIn();
+
+	const { variant } = useLocalSearchParams<{
+		variant: "sign_up" | "sign_in";
+	}>();
 
 	if (!signUp || !signIn) return null;
 
 	const handleSubmitVerificationCode = async () => {
-		try {
-			const signInAttempt = await signUp.attemptEmailAddressVerification({
-				code: verificationCode,
-			});
+		if (variant === "sign_in") {
+			try {
+				const signInAttempt = await signIn.attemptFirstFactor({
+					strategy: "email_code",
+					code: verificationCode,
+				});
 
-			// If verification was completed, set the session to active
-			// and redirect the user
-			if (signInAttempt.status === "complete") {
-				await signUpSetActive({ session: signInAttempt.createdSessionId });
+				if (signInAttempt.status === "complete") {
+					await signUpSetActive({ session: signInAttempt.createdSessionId });
 
-				router.push("/stash");
-			} else {
-				// If the status is not complete, check why. User may need to
-				// complete further steps.
-				console.error(signInAttempt);
+					router.push("/stash");
+				} else {
+					console.error(signInAttempt);
+				}
+			} catch (err) {
+				console.error("Error:", JSON.stringify(err, null, 2));
 			}
-		} catch (err) {
-			// See https://clerk.com/docs/custom-flows/error-handling
-			// for more info on error handling
-			console.error("Error:", JSON.stringify(err, null, 2));
+		} else {
+			try {
+				const signUpAttempt = await signUp.attemptEmailAddressVerification({
+					code: verificationCode,
+				});
+
+				if (signUpAttempt.status === "complete") {
+					await signUpSetActive({ session: signUpAttempt.createdSessionId });
+
+					router.push("/stash");
+				} else {
+					console.error(signUpAttempt);
+				}
+			} catch (err) {
+				console.error("Error:", JSON.stringify(err, null, 2));
+			}
 		}
 	};
 
