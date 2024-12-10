@@ -8,12 +8,14 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { FadeIn } from "react-native-reanimated";
 import { Input } from "@/components/ui/input";
 import { Button, LinkButton } from "@/components/ui/button";
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { Text } from "@/components/ui/text";
+
+const CODE_LENGTH = 6;
 
 const VerificationModal = () => {
 	const [verificationCode, setVerificationCode] = React.useState("");
@@ -75,6 +77,7 @@ const VerificationModal = () => {
 						<CardTitle>Verification Code</CardTitle>
 					</CardHeader>
 					<CardContent>
+						<CodeInput code={verificationCode} setCode={setVerificationCode} />
 						<Input
 							className="border border-gray-300 rounded-lg px-4 py-2 mb-4"
 							placeholder="verification code"
@@ -95,6 +98,36 @@ const VerificationModal = () => {
 				</Card>
 			</AnimatedView>
 		</AnimatedView>
+	);
+};
+
+interface CodeInputProps {
+	code: string;
+	setCode: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const CodeInput = ({ code, setCode }: CodeInputProps) => {
+	const ref = React.useRef<TextInput>(null);
+
+	const handleOnPress = () => {
+		ref?.current?.focus();
+	};
+
+	return (
+		<View>
+			<TextInput
+				ref={ref}
+				value={code}
+				onChangeText={setCode}
+				keyboardType="number-pad"
+				returnKeyType="done"
+				textContentType="oneTimeCode"
+				maxLength={CODE_LENGTH}
+				className="hidden"
+			/>
+
+			<Text onPress={handleOnPress}>{code}</Text>
+		</View>
 	);
 };
 
