@@ -62,7 +62,7 @@ export default function RootLayout() {
 							<Stack.Screen
 								name="login"
 								options={{
-									presentation: "transparentModal",
+									presentation: "containedTransparentModal",
 									animation: "fade",
 								}}
 							/>
