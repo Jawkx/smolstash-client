@@ -33,6 +33,12 @@ const VerificationModal = () => {
 		variant: "sign_up" | "sign_in";
 	}>();
 
+	React.useEffect(() => {
+		if (verificationCode.length === 6) {
+			handleSubmitVerificationCode();
+		}
+	}, [verificationCode]);
+
 	if (!signUp || !signIn) return null;
 
 	const handleSubmitVerificationCode = async () => {
@@ -77,6 +83,10 @@ const VerificationModal = () => {
 			entering={FadeIn}
 			className="flex w-full h-full justify-center items-center bg-black/50"
 		>
+			<Link href="../" asChild>
+				<Pressable style={StyleSheet.absoluteFill} />
+			</Link>
+
 			<AnimatedView entering={FadeIn} className="w-[80%] max-w-lg">
 				<Card>
 					<CardHeader>
@@ -85,13 +95,10 @@ const VerificationModal = () => {
 					<CardContent>
 						<CodeInput code={verificationCode} setCode={setVerificationCode} />
 					</CardContent>
-					<CardFooter className="flex-row justify-between">
-						<LinkButton href="../" variant="link">
+					<CardFooter className="flex-row justify-end">
+						<LinkButton href="../">
 							<Text className="font-semibold">Back</Text>
 						</LinkButton>
-						<Button onPress={handleSubmitVerificationCode}>
-							<Text className="font-semibold">Continue</Text>
-						</Button>
 					</CardFooter>
 				</Card>
 			</AnimatedView>
@@ -108,11 +115,11 @@ const CodeInput = ({ code, setCode }: CodeInputProps) => {
 	const ref = React.useRef<TextInput>(null);
 
 	const handleOnPress = () => {
-		ref?.current?.focus();
+		ref.current?.focus();
 	};
 
 	return (
-		<View>
+		<Pressable onPress={handleOnPress}>
 			<TextInput
 				ref={ref}
 				value={code}
@@ -122,13 +129,22 @@ const CodeInput = ({ code, setCode }: CodeInputProps) => {
 				returnKeyType="done"
 				textContentType="oneTimeCode"
 				maxLength={CODE_LENGTH}
-				className="invisible"
+				className="absolute w-0 h-0 opacity-0"
 			/>
 
-			<TouchableOpacity onPress={handleOnPress}>
-				<Text>{code}</Text>
-			</TouchableOpacity>
-		</View>
+			<View className="flex-row gap-2 justify-center">
+				{[...Array(CODE_LENGTH)].map((_, index) => (
+					<View
+						key={index}
+						className={`w-9 h-12 border-2 rounded-lg items-center justify-center ${
+							code.length === index ? "border-primary" : "border-border"
+						}`}
+					>
+						<Text className="text-xl font-bold">{code[index] || ""}</Text>
+					</View>
+				))}
+			</View>
+		</Pressable>
 	);
 };
 
