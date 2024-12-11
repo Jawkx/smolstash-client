@@ -20,7 +20,7 @@ const LogInLayout = () => {
 	return (
 		<Stack
 			screenOptions={{
-				presentation: "transparentModal",
+				presentation: "containedTransparentModal",
 				animation: "fade",
 				headerShown: false,
 			}}
