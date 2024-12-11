@@ -8,16 +8,9 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import {
-	Pressable,
-	StyleSheet,
-	TextInput,
-	TouchableOpacity,
-	View,
-} from "react-native";
+import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { FadeIn } from "react-native-reanimated";
-import { Input } from "@/components/ui/input";
-import { Button, LinkButton } from "@/components/ui/button";
+import { LinkButton } from "@/components/ui/button";
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { Text } from "@/components/ui/text";
 
