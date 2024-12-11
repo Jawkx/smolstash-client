@@ -45,7 +45,7 @@ const VerificationModal = () => {
 				if (signInAttempt.status === "complete") {
 					await signUpSetActive({ session: signInAttempt.createdSessionId });
 
-					router.push("/stash");
+					router.replace("/stash");
 				} else {
 					console.error(signInAttempt);
 				}
