@@ -13,7 +13,6 @@
 		"preset": "jest-expo"
 	},
 	"dependencies": {
-		"@backpackapp-io/react-native-toast": "^0.13.0",
 		"@clerk/clerk-expo": "^2.3.10",
 		"@clerk/clerk-js": "^5.41.0",
 		"@expo/vector-icons": "^14.0.2",
