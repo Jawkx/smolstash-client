@@ -12,12 +12,6 @@ export function useColorScheme() {
 		} else {
 			AsyncStorage.setItem("theme", "light");
 		}
-
-		document.documentElement.classList.replace(
-			isLightScheme ? "root" : "dark-root",
-			isLightScheme ? "dark-root" : "root",
-		);
-
 		toggleColorScheme();
 	};
 
