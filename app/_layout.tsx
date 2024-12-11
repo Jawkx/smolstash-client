@@ -11,8 +11,10 @@ import { Platform, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Stack, useRouter } from "expo-router";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import Toast from "react-native-toast-message";
 import { NAV_THEME } from "@lib/constants";
 import "../global.css";
+import { toastConfig } from "@/components/toast";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -68,6 +70,7 @@ export default function RootLayout() {
 							/>
 							<Stack.Screen name="stash" />
 						</Stack>
+						<Toast config={toastConfig} position="bottom" />
 					</View>
 				</ThemeProvider>
 			</ClerkLoaded>
