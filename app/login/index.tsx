@@ -58,7 +58,7 @@ const LoginModal = () => {
 
 			setIsLoading(false);
 			router.push({
-				pathname: "/sign-in/verification",
+				pathname: "/login/verification",
 				params: { variant: "sign_in" },
 			});
 		} catch (e) {
@@ -100,7 +100,7 @@ const LoginModal = () => {
 			entering={FadeIn}
 			className="flex w-full h-full justify-center items-center bg-black/50"
 		>
-			<Link href="/" asChild>
+			<Link href="../" push asChild>
 				<Pressable style={StyleSheet.absoluteFill} />
 			</Link>
 

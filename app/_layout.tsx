@@ -109,7 +109,7 @@ const useInit = (
 		})().finally(() => {
 			SplashScreen.hideAsync();
 		});
-	}, [setColorScheme, colorScheme]);
+	}, []);
 
 	useEffect(() => {
 		if (error) throw error;
