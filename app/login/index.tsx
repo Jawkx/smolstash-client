@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
+	CardDescription,
 	CardFooter,
 	CardHeader,
 	CardTitle,
@@ -17,11 +18,12 @@ import { ClerkAPIResponseError } from "@clerk/clerk-js";
 import { Input } from "@ui/input";
 import { Link, useRouter } from "expo-router";
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet } from "react-native";
 import { FadeIn, SlideInDown } from "react-native-reanimated";
 import { SignInFirstFactor, EmailCodeFactor } from "@clerk/types";
 
-const SignInModal = () => {
+const LoginModal = () => {
+	const [isLoading, setIsLoading] = React.useState(false);
 	const [email, setEmail] = React.useState("");
 	const router = useRouter();
 
@@ -31,6 +33,7 @@ const SignInModal = () => {
 	if (!signUp || !signIn) return null;
 
 	const handleSignIn = async () => {
+		setIsLoading(true);
 		try {
 			const { supportedFirstFactors } = await signIn.create({
 				identifier: email,
@@ -53,6 +56,7 @@ const SignInModal = () => {
 				});
 			}
 
+			setIsLoading(false);
 			router.push({
 				pathname: "/sign-in/verification",
 				params: { variant: "sign_in" },
@@ -66,17 +70,20 @@ const SignInModal = () => {
 						handleSignUp();
 					}
 				});
+
+				setIsLoading(false);
 			}
 		}
 	};
 
 	const handleSignUp = async () => {
+		setIsLoading(true);
 		try {
 			await signUp.create({ emailAddress: email });
 			await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
 			router.push({
-				pathname: "/sign-in/verification",
+				pathname: "/login/verification",
 				params: { variant: "sign_up" },
 			});
 		} catch (e) {
@@ -85,6 +92,7 @@ const SignInModal = () => {
 				console.log(typedError.errors);
 			}
 		}
+		setIsLoading(false);
 	};
 
 	return (
@@ -99,7 +107,10 @@ const SignInModal = () => {
 			<AnimatedView entering={SlideInDown} className="w-[80%] max-w-lg">
 				<Card>
 					<CardHeader>
-						<CardTitle>Sign In</CardTitle>
+						<CardTitle>Login</CardTitle>
+						<CardDescription>
+							Enter your email to sign in or create a new account
+						</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<Input
@@ -112,8 +123,12 @@ const SignInModal = () => {
 						/>
 					</CardContent>
 					<CardFooter>
-						<Button onPress={handleSignIn}>
-							<Text className="font-semibold">Continue</Text>
+						<Button onPress={handleSignIn} className="flex-row">
+							{isLoading ? (
+								<ActivityIndicator />
+							) : (
+								<Text className="font-semibold">Continue</Text>
+							)}
 						</Button>
 					</CardFooter>
 				</Card>
@@ -122,4 +137,4 @@ const SignInModal = () => {
 	);
 };
 
-export default SignInModal;
+export default LoginModal;

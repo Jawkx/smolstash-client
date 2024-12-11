@@ -1,6 +1,6 @@
 import React from "react";
 import { AnimatedView } from "@/components/ui/animated";
-import { Link, router, useLocalSearchParams, useRouter } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import {
 	Card,
 	CardContent,
