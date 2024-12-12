@@ -14,7 +14,7 @@ import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import Toast from "react-native-toast-message";
 import { NAV_THEME } from "@lib/constants";
 import "../global.css";
-import { toastConfig } from "@/components/toast";
+import { toastConfig } from "@ui/toast";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
