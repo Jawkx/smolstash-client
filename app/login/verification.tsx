@@ -11,8 +11,14 @@ import {
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { FadeIn } from "react-native-reanimated";
 import { LinkButton } from "@/components/ui/button";
-import { useSignIn, useSignUp } from "@clerk/clerk-expo";
+import {
+	isClerkAPIResponseError,
+	useSignIn,
+	useSignUp,
+} from "@clerk/clerk-expo";
 import { Text } from "@/components/ui/text";
+import Toast from "react-native-toast-message";
+import { ClerkAPIResponseError } from "@clerk/clerk-js";
 
 const CODE_LENGTH = 6;
 
@@ -47,9 +53,19 @@ const VerificationModal = () => {
 
 					router.replace("/stash");
 				} else {
+					Toast.show({ type: "error", text1: "error signing in" });
 					console.error(signInAttempt);
 				}
 			} catch (err) {
+				if (isClerkAPIResponseError(err)) {
+					const typedError = err as ClerkAPIResponseError;
+
+					typedError.errors.forEach(({ message }) => {
+						Toast.show({ type: "error", text1: message });
+						return;
+					});
+				}
+				Toast.show({ type: "error", text1: "error signing in" });
 				console.error("Error:", JSON.stringify(err, null, 2));
 			}
 		} else {
@@ -63,9 +79,11 @@ const VerificationModal = () => {
 
 					router.push("/stash");
 				} else {
+					Toast.show({ type: "error", text1: "error signing in" });
 					console.error(signUpAttempt);
 				}
 			} catch (err) {
+				Toast.show({ type: "error", text1: "error signing in" });
 				console.error("Error:", JSON.stringify(err, null, 2));
 			}
 		}
