@@ -13,10 +13,10 @@ export const toastConfig: ToastConfig = {
 			<View
 				className={`w-full h-12 flex-row ${Platform.OS === "web" ? "justify-end px-8" : "justify-center"}`}
 			>
-				<View className="h-full w-[90%] max-w-[400] bg-card rounded-lg border-border border flex-row items-center">
+				<View className="h-full w-[90%] max-w-[400] bg-card rounded-lg border-emerald-600 border-2 flex-row items-center">
 					<View className="w-3" />
-					<View className="w-1 h-[50%] bg-emerald-600 rounded-sm" />
-					<View className="w-2" />
+					<View className="w-2 h-[60%] rounded-lg bg-emerald-600" />
+					<View className="w-1.5" />
 					<Text>{text1}</Text>
 				</View>
 			</View>
