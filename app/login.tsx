@@ -247,7 +247,7 @@ const CodeInput = ({ code, setCode }: CodeInputProps) => {
 				{[...Array(CODE_LENGTH)].map((_, index) => (
 					<View
 						key={index}
-						className={`flex-1 h-12 border-2 rounded-lg items-center justify-center ${
+						className={`flex-1 h-12 w-max-[20px] border-2 rounded-lg items-center justify-center ${
 							code.length === index ? "border-primary" : "border-border"
 						}`}
 					>
