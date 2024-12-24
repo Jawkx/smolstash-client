@@ -5,9 +5,17 @@ import { Text } from "@ui/text";
 import { Moon, Sun } from "@lib/icons";
 import { useColorScheme } from "@/lib/useColorScheme";
 import Toast from "react-native-toast-message";
+import { useAuth } from "@clerk/clerk-expo";
+import { Redirect } from "expo-router";
 
 const IndexPage = () => {
 	const { toggleColorScheme, colorScheme } = useColorScheme();
+
+	const { isSignedIn } = useAuth();
+
+	if (isSignedIn) {
+		return <Redirect href="/stash" />;
+	}
 
 	return (
 		<View className="bg-background w-full h-full">
@@ -27,15 +35,6 @@ const IndexPage = () => {
 						)}
 					</Button>
 				</View>
-
-				<Text>In Progress</Text>
-				<Button
-					onPress={() => {
-						Toast.show({ type: "success", text1: "yay" });
-					}}
-				>
-					<Text>test</Text>
-				</Button>
 			</View>
 		</View>
 	);
