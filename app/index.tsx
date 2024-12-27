@@ -4,7 +4,6 @@ import { Button, LinkButton } from "@ui/button";
 import { Text } from "@ui/text";
 import { Moon, Sun } from "@lib/icons";
 import { useColorScheme } from "@/lib/useColorScheme";
-import Toast from "react-native-toast-message";
 import { useAuth } from "@clerk/clerk-expo";
 import { Redirect } from "expo-router";
 

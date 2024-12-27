@@ -61,13 +61,7 @@ export default function RootLayout() {
 					<View className="flex-1 bg-background">
 						<Stack screenOptions={{ headerShown: false }}>
 							<Stack.Screen name="index" />
-							<Stack.Screen
-								name="login"
-								options={{
-									presentation: "containedTransparentModal",
-									animation: "fade",
-								}}
-							/>
+							<Stack.Screen name="login" />
 							<Stack.Screen name="stash" />
 						</Stack>
 						<Toast config={toastConfig} position="bottom" />
