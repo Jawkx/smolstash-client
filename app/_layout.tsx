@@ -15,6 +15,7 @@ import Toast from "react-native-toast-message";
 import { NAV_THEME } from "@lib/constants";
 import "../global.css";
 import { toastConfig } from "@ui/toast";
+import { LoginScreenHeader } from "@/components/screens/LoginScreen/Header";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,

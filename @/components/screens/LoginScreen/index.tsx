@@ -6,6 +6,7 @@ import { View } from "react-native";
 import { useLoginFlow } from "./useLoginFlow";
 import { CodeInput } from "./VerificationCodeInput";
 import { Button } from "@/components/ui/button";
+import { LoginScreenTop } from "./LoginScreenTop";
 
 export const LoginScreen = () => {
 	const {
@@ -23,6 +24,7 @@ export const LoginScreen = () => {
 
 	return (
 		<View className="flex w-full h-full justify-center px-5">
+			<LoginScreenTop />
 			<Text className="font-bold text-4xl">Log In</Text>
 
 			<Text>
