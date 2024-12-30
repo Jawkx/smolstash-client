@@ -15,7 +15,11 @@ import Toast from "react-native-toast-message";
 import { NAV_THEME } from "@lib/constants";
 import "../global.css";
 import { toastConfig } from "@ui/toast";
-import { LoginScreenHeader } from "@/components/screens/LoginScreen/Header";
+import {
+	QueryClient,
+	QueryClientProvider,
+	useQuery,
+} from "@tanstack/react-query";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -39,6 +43,8 @@ if (!publishableKey) {
 	throw new Error("Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file");
 }
 
+const queryClient = new QueryClient();
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -54,22 +60,24 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ClerkProvider publishableKey={publishableKey as string}>
-			<ClerkLoaded>
-				<ThemeProvider
-					value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
-				>
-					<View className="flex-1 bg-background">
-						<Stack screenOptions={{ headerShown: false }}>
-							<Stack.Screen name="index" />
-							<Stack.Screen name="login" />
-							<Stack.Screen name="stash" />
-						</Stack>
-						<Toast config={toastConfig} position="bottom" />
-					</View>
-				</ThemeProvider>
-			</ClerkLoaded>
-		</ClerkProvider>
+		<QueryClientProvider client={queryClient}>
+			<ClerkProvider publishableKey={publishableKey as string}>
+				<ClerkLoaded>
+					<ThemeProvider
+						value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
+					>
+						<View className="flex-1 bg-background">
+							<Stack screenOptions={{ headerShown: false }}>
+								<Stack.Screen name="index" />
+								<Stack.Screen name="login" />
+								<Stack.Screen name="stash" />
+							</Stack>
+							<Toast config={toastConfig} position="bottom" />
+						</View>
+					</ThemeProvider>
+				</ClerkLoaded>
+			</ClerkProvider>
+		</QueryClientProvider>
 	);
 }
 

@@ -1,11 +1,22 @@
 import React from "react";
-import { Stack } from "expo-router";
+import { Drawer } from "expo-router/drawer";
+import { Platform } from "react-native";
+import { StashDrawerContent } from "@/components/screens/StashScreen/DrawerContent";
+import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 
 const StashLayout = () => {
 	return (
-		<Stack screenOptions={{ headerShown: false }}>
-			<Stack.Screen name="index" />
-		</Stack>
+		<Drawer
+			drawerContent={StashDrawerContent}
+			screenOptions={{
+				headerRight: ThemeToggler,
+				headerLeft: () => null,
+				headerTitle: "",
+				drawerType: Platform.OS === "web" ? "permanent" : "front",
+			}}
+		>
+			<Drawer.Screen name="index" />
+		</Drawer>
 	);
 };
 

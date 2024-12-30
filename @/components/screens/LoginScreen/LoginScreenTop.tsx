@@ -8,7 +8,7 @@ export const LoginScreenTop = () => {
 	const { toggleColorScheme, colorScheme } = useColorScheme();
 
 	return (
-		<View className="absolute flex-row justify-end w-screen top-safe">
+		<View className="absolute flex-row justify-end w-screen top-safe-or-4">
 			<Button variant="link" onPress={toggleColorScheme}>
 				{colorScheme === "dark" ? (
 					<Moon className="text-foreground" size={24} />
