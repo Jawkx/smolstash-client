@@ -1,8 +1,5 @@
 import React from "react";
-import {
-	DrawerContentScrollView,
-	DrawerContentComponentProps,
-} from "@react-navigation/drawer";
+import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { Text } from "@/components/ui/text";
 import { ActivityIndicator, View } from "react-native";
 import { LinkButton } from "@/components/ui/button";
@@ -28,7 +25,7 @@ export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 	});
 
 	return (
-		<DrawerContentScrollView contentContainerStyle={{ padding: 0 }}>
+		<View className="border-border border flex-1">
 			<View
 				style={{ height: defaultHeaderHeight }}
 				className="justify-end border-border border"
@@ -41,17 +38,17 @@ export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 			{isPending || isFetching ? (
 				<ActivityIndicator size="large" />
 			) : (
-				data?.stashes.map(({ Name, Id }) => (
+				data?.stashes.map(({ name, id }) => (
 					<LinkButton
 						href="/stash"
-						key={Id}
+						key={id}
 						variant="ghost"
 						className="w-full items-start"
 					>
-						<Text>{Name}</Text>
+						<Text>{name}</Text>
 					</LinkButton>
 				))
 			)}
-		</DrawerContentScrollView>
+		</View>
 	);
 };
