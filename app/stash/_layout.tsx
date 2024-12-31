@@ -10,7 +10,7 @@ const StashLayout = () => {
 			drawerContent={StashDrawerContent}
 			screenOptions={{
 				headerRight: ThemeToggler,
-				headerLeft: () => null,
+				headerLeft: Platform.OS === "web" ? () => null : undefined,
 				headerTitle: "",
 				drawerType: Platform.OS === "web" ? "permanent" : "front",
 			}}
