@@ -15,11 +15,8 @@ import Toast from "react-native-toast-message";
 import { NAV_THEME } from "@lib/constants";
 import "../global.css";
 import { toastConfig } from "@ui/toast";
-import {
-	QueryClient,
-	QueryClientProvider,
-	useQuery,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { tokenCache } from "../tokenCache";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -61,7 +58,10 @@ export default function RootLayout() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ClerkProvider publishableKey={publishableKey as string}>
+			<ClerkProvider
+				publishableKey={publishableKey as string}
+				tokenCache={tokenCache}
+			>
 				<ClerkLoaded>
 					<ThemeProvider
 						value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
