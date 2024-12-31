@@ -8,11 +8,11 @@ if (!rootUrl) {
 
 interface GetStashesResponse {
 	stashes: {
-		DbName: string;
-		DbPath: string;
-		Id: string;
-		Name: string;
-		OwnerId: string;
+		dbName: string;
+		dbPath: string;
+		id: string;
+		name: string;
+		ownerId: string;
 	}[];
 }
 
