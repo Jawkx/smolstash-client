@@ -40,7 +40,7 @@ export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 			) : (
 				data?.stashes.map(({ name, id }) => (
 					<LinkButton
-						href="/stash"
+						href={`/stash/${id}`}
 						key={id}
 						variant="ghost"
 						className="w-full items-start"
