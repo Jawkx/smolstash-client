@@ -9,7 +9,7 @@ export const ThemeToggler = () => {
 	return (
 		<Button variant="link" onPress={toggleColorScheme}>
 			{colorScheme === "dark" ? (
-				<Moon className="text-foreground" size={24} />
+				<Moon className="text-foreground" />
 			) : (
 				<Sun className="text-foreground" />
 			)}
