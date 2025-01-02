@@ -8,37 +8,43 @@ import {
 	useSafeAreaFrame,
 	useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { useQuery } from "@tanstack/react-query";
+import { useStore } from "@/store";
 import { useAuth } from "@clerk/clerk-expo";
-import { CoreApi } from "@/api";
 
 export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 	const frame = useSafeAreaFrame();
 	const insets = useSafeAreaInsets();
+	const { isSignedIn } = useAuth();
 	const defaultHeaderHeight = getDefaultHeaderHeight(frame, false, insets.top);
 
-	const { getToken } = useAuth();
+	const accessToken = useStore((state) => state.accessToken);
+	const stashes = useStore((state) => state.stashes);
+	const getStashes = useStore((state) => state.getStashes);
+	const { isLoading } = useStore((state) => state.stashesLoadState);
 
-	const { isPending, error, data, isFetching } = useQuery({
-		queryKey: ["stashes"],
-		queryFn: () => CoreApi.getStashes(getToken),
-	});
+	React.useEffect(() => {
+		if (isSignedIn && stashes === null && accessToken) {
+			getStashes();
+		}
+	}, [accessToken, stashes, isSignedIn]);
 
 	return (
 		<View className="border-border border flex-1">
 			<View
 				style={{ height: defaultHeaderHeight }}
-				className="justify-end border-border border"
-			></View>
+				className="p-3 justify-end border-border border"
+			>
+				<Text className="font-bold text-3xl">Comfy Stash</Text>
+			</View>
 
 			<View className="h-4" />
-			<Text className="text-2xl font-bold px-4">Stashes</Text>
+			<Text className="text-2xl font-medium px-4">Stashes</Text>
 			<View className="h-1" />
 
-			{isPending || isFetching ? (
+			{isLoading ? (
 				<ActivityIndicator size="large" />
 			) : (
-				data?.stashes.map(({ name, id }) => (
+				stashes?.map(({ name, id }) => (
 					<LinkButton
 						href={`/stash/${id}`}
 						key={id}

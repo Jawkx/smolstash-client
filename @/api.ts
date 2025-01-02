@@ -1,4 +1,5 @@
 import { fetch } from "expo/fetch";
+import { Stash } from "./model";
 
 const rootUrl = process.env.EXPO_PUBLIC_API_ROOT;
 
@@ -7,22 +8,10 @@ if (!rootUrl) {
 }
 
 interface GetStashesResponse {
-	stashes: {
-		dbName: string;
-		dbPath: string;
-		id: string;
-		name: string;
-		ownerId: string;
-	}[];
+	stashes: Stash[];
 }
 
-const getStashes = async (
-	getToken: () => Promise<string | null>,
-): Promise<GetStashesResponse> => {
-	const accessToken = await getToken();
-
-	if (!accessToken) throw new Error("Access Token not present");
-
+const getStashes = async (accessToken: string): Promise<GetStashesResponse> => {
 	const response = await fetch(rootUrl + "/stashes", {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
