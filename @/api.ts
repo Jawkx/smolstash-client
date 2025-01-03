@@ -1,4 +1,4 @@
-import { fetch } from "expo/fetch";
+import { fetch, FetchRequestInit } from "expo/fetch";
 import { Stash } from "./model";
 
 const rootUrl = process.env.EXPO_PUBLIC_API_ROOT;
@@ -22,6 +22,25 @@ const getStashes = async (accessToken: string): Promise<GetStashesResponse> => {
 	return await response.json();
 };
 
+interface GetStashInfoRes {
+	stashInfo: Stash;
+}
+
+const getStashInfo = async (
+	accessToken: string,
+	stashId: string,
+): Promise<GetStashInfoRes> => {
+	const response = await fetch(rootUrl + `/stash/${stashId}/info`, {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			Accept: "application/json",
+		},
+	});
+
+	return await response.json();
+};
+
 export const CoreApi = {
 	getStashes,
+	getStashInfo,
 };
