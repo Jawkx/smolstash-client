@@ -6,6 +6,7 @@ import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 import { useAuth } from "@clerk/clerk-expo";
 import { useStore } from "@/store";
 import { Stack } from "expo-router";
+import { StashSelectionHeader } from "@/components/screens/StashScreen/mobile/StashSelectionHeader";
 
 const StashLayout = () => {
 	const { getToken, isSignedIn } = useAuth();
@@ -41,16 +42,30 @@ const StashLayoutWeb = () => {
 			}}
 		>
 			<Drawer.Screen name="index" />
-			<Drawer.Screen name="[stashId].tsx" />
+			<Drawer.Screen name="[stashId]" />
 		</Drawer>
 	);
 };
 
 const StashLayoutMobile = () => {
 	return (
-		<Stack screenOptions={{ headerTitle: "", headerRight: ThemeToggler }}>
-			<Stack.Screen name="index" />
-			<Stack.Screen name="[stashId].tsx" />
+		<Stack screenOptions={{ headerRight: ThemeToggler }}>
+			<Stack.Screen
+				name="index"
+				options={{
+					headerTitle: () => (
+						<StashSelectionHeader>Select a stash</StashSelectionHeader>
+					),
+				}}
+			/>
+			<Stack.Screen
+				name="[stashId]"
+				options={{ presentation: "card", headerTitle: StashSelectionHeader }}
+			/>
+			<Stack.Screen
+				name="stash-selection"
+				options={{ presentation: "fullScreenModal", headerShown: false }}
+			/>
 		</Stack>
 	);
 };

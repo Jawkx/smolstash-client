@@ -8,25 +8,14 @@ import {
 	useSafeAreaFrame,
 	useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { useStore } from "@/store";
-import { useAuth } from "@clerk/clerk-expo";
+import { useStashes } from "./useStashes";
 
 export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 	const frame = useSafeAreaFrame();
 	const insets = useSafeAreaInsets();
-	const { isSignedIn } = useAuth();
 	const defaultHeaderHeight = getDefaultHeaderHeight(frame, false, insets.top);
 
-	const accessToken = useStore((state) => state.accessToken);
-	const stashes = useStore((state) => state.stashes);
-	const getStashes = useStore((state) => state.getStashes);
-	const { isLoading } = useStore((state) => state.stashesLoadState);
-
-	React.useEffect(() => {
-		if (isSignedIn && stashes === null && accessToken) {
-			getStashes();
-		}
-	}, [accessToken, stashes, isSignedIn]);
+	const { stashes, isLoading } = useStashes();
 
 	return (
 		<View className="border-border border flex-1">

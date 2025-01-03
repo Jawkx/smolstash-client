@@ -90,11 +90,23 @@ const Button = React.forwardRef<
 
 interface LinkButtonProps extends ButtonProps {
 	href: LinkProps["href"];
+	replace?: LinkProps["replace"];
+	push?: LinkProps["push"];
 }
 
-const LinkButton = ({ href, ...props }: LinkButtonProps) => {
+const LinkButton = ({
+	href,
+	replace = false,
+	push = false,
+	...props
+}: LinkButtonProps) => {
 	return (
-		<Link href={href} asChild={Platform.OS !== "web"}>
+		<Link
+			href={href}
+			replace={replace}
+			push={push}
+			asChild={Platform.OS !== "web"}
+		>
 			<Button {...props} />
 		</Link>
 	);

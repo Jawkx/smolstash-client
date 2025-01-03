@@ -10,9 +10,6 @@ export const EmptyStashScreen = () => {
 	return (
 		<View className="items-center justify-center flex-1">
 			<Text className="font-bold text-xl">Select a stash to continue</Text>
-			<Button>
-				<Text>Select a stash</Text>
-			</Button>
 		</View>
 	);
 };
