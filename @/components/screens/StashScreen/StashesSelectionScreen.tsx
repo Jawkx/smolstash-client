@@ -9,13 +9,17 @@ import { useStashes } from "./useStashes";
 import { Stash } from "@/model";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
+
+export type StashesSelectionScreenRouteParam = {
+	selected?: string;
+};
 
 export const StashesSelectionScreen = () => {
+	const { selected } = useLocalSearchParams<StashesSelectionScreenRouteParam>();
 	const { stashes, isLoading } = useStashes();
 	const router = useRouter();
 
-	console.log({ stashes });
 	const renderStashItem: ListRenderItem<Stash> = ({ item }) => {
 		const { name, id } = item;
 
@@ -28,7 +32,7 @@ export const StashesSelectionScreen = () => {
 			<Button
 				variant="ghost"
 				onPress={handlePressItem}
-				className="items-start w-full"
+				className={`flex-row items-center justify-between w-full ${id === selected ? "bg-muted" : ""}`}
 			>
 				<Text>{name}</Text>
 			</Button>

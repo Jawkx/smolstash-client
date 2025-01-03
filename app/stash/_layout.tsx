@@ -1,12 +1,12 @@
 import React from "react";
 import { Drawer } from "expo-router/drawer";
 import { ActivityIndicator, Platform } from "react-native";
-import { StashDrawerContent } from "@/components/screens/StashScreen/DrawerContent";
 import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 import { useAuth } from "@clerk/clerk-expo";
 import { useStore } from "@/store";
 import { Stack } from "expo-router";
 import { StashSelectionHeader } from "@/components/screens/StashScreen/mobile/StashSelectionHeader";
+import { StashDrawerContent } from "@/components/screens/StashScreen/web/DrawerContent";
 
 const StashLayout = () => {
 	const { getToken, isSignedIn } = useAuth();
