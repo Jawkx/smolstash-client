@@ -1,8 +1,8 @@
+import { EmptyStashScreen } from "@/components/screens/StashScreen/EmptyStash";
 import React from "react";
-import { StashScreen } from "@/components/screens/StashScreen";
 
 const Stash = () => {
-	return <StashScreen />;
+	return <EmptyStashScreen />;
 };
 
 export default Stash;

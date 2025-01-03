@@ -1,34 +1,56 @@
 import React from "react";
 import { Drawer } from "expo-router/drawer";
-import { Platform } from "react-native";
+import { ActivityIndicator, Platform } from "react-native";
 import { StashDrawerContent } from "@/components/screens/StashScreen/DrawerContent";
 import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 import { useAuth } from "@clerk/clerk-expo";
 import { useStore } from "@/store";
+import { Stack } from "expo-router";
 
 const StashLayout = () => {
-	const { getToken } = useAuth();
+	const { getToken, isSignedIn } = useAuth();
+	const accessToken = useStore((state) => state.accessToken);
 	const setAccessToken = useStore((state) => state.setAccesstoken);
 
 	React.useEffect(() => {
-		getToken().then((token) => {
-			if (token) setAccessToken(token);
-		});
+		if (isSignedIn) {
+			getToken().then((token) => {
+				if (token) setAccessToken(token);
+			});
+		}
 	}, []);
 
+	if (isSignedIn && !accessToken) {
+		return <ActivityIndicator size="large" />;
+	}
+
+	return Platform.OS === "web" ? <StashLayoutWeb /> : <StashLayoutMobile />;
+};
+
+export default StashLayout;
+
+const StashLayoutWeb = () => {
 	return (
 		<Drawer
 			drawerContent={StashDrawerContent}
 			screenOptions={{
 				headerRight: ThemeToggler,
-				headerLeft: Platform.OS === "web" ? () => null : undefined,
+				headerLeft: () => null,
 				headerTitle: "",
-				drawerType: Platform.OS === "web" ? "permanent" : "front",
+				drawerType: "permanent",
 			}}
 		>
 			<Drawer.Screen name="index" />
+			<Drawer.Screen name="[stashId].tsx" />
 		</Drawer>
 	);
 };
 
-export default StashLayout;
+const StashLayoutMobile = () => {
+	return (
+		<Stack screenOptions={{ headerTitle: "", headerRight: ThemeToggler }}>
+			<Stack.Screen name="index" />
+			<Stack.Screen name="[stashId].tsx" />
+		</Stack>
+	);
+};
