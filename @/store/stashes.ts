@@ -28,7 +28,7 @@ export const createStashesSlice: StateCreator<
 			set({
 				stashesLoadState: {
 					isLoading: false,
-					error: !accessToken ? new Error("yay") : null,
+					error: !accessToken ? new Error("no access token") : null,
 				},
 			});
 			return;
