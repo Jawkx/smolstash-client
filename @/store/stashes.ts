@@ -41,11 +41,18 @@ export const createStashesSlice: StateCreator<
 			},
 		});
 
-		const { stashes } = await CoreApi.getStashes(accessToken);
+		try {
+			const { stashes } = await CoreApi.getStashes(accessToken);
 
-		set({
-			stashes: stashes,
-			stashesLoadState: { isLoading: false, error: null },
-		});
+			set({
+				stashes: stashes,
+				stashesLoadState: { isLoading: false, error: null },
+			});
+		} catch (e) {
+			set({
+				stashes: null,
+				stashesLoadState: { isLoading: false, error: e as Error },
+			});
+		}
 	},
 });

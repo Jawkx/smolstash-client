@@ -37,7 +37,16 @@ const getStashInfo = async (
 		},
 	});
 
-	return await response.json();
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const data = await response.json();
+	if (!data || !data.stashInfo) {
+		throw new Error("Invalid response format");
+	}
+
+	return data;
 };
 
 export const CoreApi = {
