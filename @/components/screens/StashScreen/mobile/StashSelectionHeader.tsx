@@ -5,7 +5,9 @@ import { useGlobalSearchParams } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 
-export const StashSelectionHeader = ({ children }: { children: string }) => {
+export const StashSelectionHeaderButton = ({
+	children,
+}: { children: string }) => {
 	const { stashId } = useGlobalSearchParams();
 
 	return (
@@ -21,7 +23,7 @@ export const StashSelectionHeader = ({ children }: { children: string }) => {
 		>
 			<Text className="text-sm font-semibold">{children}</Text>
 			<View className="w-2" />
-			<ArrowUpDown size={16} />
+			<ArrowUpDown className="text-foreground" size={16} />
 		</LinkButton>
 	);
 };
