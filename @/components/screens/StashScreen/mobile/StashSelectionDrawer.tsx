@@ -16,9 +16,8 @@ export type StashesSelectionScreenRouteParam = {
 };
 
 export const StashSelectionSheet = () => {
-
 	const { selected } = useLocalSearchParams<StashesSelectionScreenRouteParam>();
-	const { stashes, isLoading } = useStashes();
+	const { data: stashes, isLoading } = useStashes();
 	const router = useRouter();
 
 	const renderStashItem: ListRenderItem<Stash> = ({ item }) => {
@@ -65,4 +64,5 @@ export const StashSelectionSheet = () => {
 				</View>
 			)}
 		</View>
-}
+	);
+};

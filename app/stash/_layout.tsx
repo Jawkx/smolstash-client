@@ -3,15 +3,15 @@ import { Drawer } from "expo-router/drawer";
 import { ActivityIndicator, Platform } from "react-native";
 import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 import { useAuth } from "@clerk/clerk-expo";
-import { useStore } from "@/store";
 import { Stack } from "expo-router";
 import { StashDrawerContent } from "@/components/screens/StashScreen/web/DrawerContent";
 import { StashHeader } from "@/components/screens/StashScreen/mobile/StashHeader";
+import { useAccessToken } from "@/context/accessToken";
 
 const StashLayout = () => {
 	const { getToken, isSignedIn } = useAuth();
-	const accessToken = useStore((state) => state.accessToken);
-	const setAccessToken = useStore((state) => state.setAccesstoken);
+
+	const { accessToken, setAccessToken } = useAccessToken();
 
 	React.useEffect(() => {
 		if (isSignedIn) {

@@ -23,7 +23,7 @@ export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 	const insets = useSafeAreaInsets();
 	const defaultHeaderHeight = getDefaultHeaderHeight(frame, false, insets.top);
 
-	const { stashes, isLoading } = useStashes();
+	const { data: stashes, isLoading } = useStashes();
 
 	return (
 		<View className="border-border border flex-1">

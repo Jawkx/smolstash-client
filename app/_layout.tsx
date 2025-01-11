@@ -17,6 +17,7 @@ import { toastConfig } from "@ui/toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { tokenCache } from "../tokenCache";
 import { StatusBar } from "expo-status-bar";
+import { AccessTokenProvider } from "@/context/accessToken";
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -66,15 +67,17 @@ export default function RootLayout() {
 					<ThemeProvider
 						value={colorScheme === "dark" ? DARK_THEME : LIGHT_THEME}
 					>
-						<StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-						<View className="flex-1 bg-background">
-							<Stack screenOptions={{ headerShown: false }}>
-								<Stack.Screen name="index" />
-								<Stack.Screen name="login" />
-								<Stack.Screen name="stash" />
-							</Stack>
-							<Toast config={toastConfig} position="bottom" />
-						</View>
+						<AccessTokenProvider>
+							<StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+							<View className="flex-1 bg-background">
+								<Stack screenOptions={{ headerShown: false }}>
+									<Stack.Screen name="index" />
+									<Stack.Screen name="login" />
+									<Stack.Screen name="stash" />
+								</Stack>
+								<Toast config={toastConfig} position="bottom" />
+							</View>
+						</AccessTokenProvider>
 					</ThemeProvider>
 				</ClerkLoaded>
 			</ClerkProvider>

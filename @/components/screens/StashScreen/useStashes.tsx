@@ -1,24 +1,22 @@
-import { useStore } from "@/store";
+import { CoreApi } from "@/api";
+import { useAccessToken } from "@/context/accessToken";
 import { useAuth } from "@clerk/clerk-expo";
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export const useStashes = () => {
 	const { isSignedIn } = useAuth();
 
-	const accessToken = useStore((state) => state.accessToken);
-	const stashes = useStore((state) => state.stashes);
-	const getStashes = useStore((state) => state.getStashes);
-	const { isLoading } = useStore((state) => state.stashesLoadState);
+	const { accessToken } = useAccessToken();
 
-	React.useEffect(() => {
-		if (isSignedIn && !stashes && accessToken) {
-			getStashes();
-		}
-	}, [accessToken, stashes, isSignedIn]);
+	return useQuery({
+		queryKey: ["stashes"],
+		queryFn: () => {
+			if (!accessToken) {
+				throw new Error("No access token");
+			}
 
-	return {
-		stashes,
-		isLoading,
-		getStashes,
-	};
+			return CoreApi.getStashes(accessToken);
+		},
+		enabled: isSignedIn && !!accessToken,
+	});
 };

@@ -7,9 +7,7 @@ if (!rootUrl) {
 	throw new Error("Add EXPO_PUBLIC_ROOT_URL to your .env file");
 }
 
-interface GetStashesResponse {
-	stashes: Stash[];
-}
+type GetStashesResponse = Stash[];
 
 const getStashes = async (accessToken: string): Promise<GetStashesResponse> => {
 	const response = await fetch(rootUrl + "/stashes", {
@@ -19,7 +17,16 @@ const getStashes = async (accessToken: string): Promise<GetStashesResponse> => {
 		},
 	});
 
-	return await response.json();
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const data = await response.json();
+	if (!data) {
+		throw new Error("Invalid response format");
+	}
+
+	return data;
 };
 
 interface GetStashInfoRes {
