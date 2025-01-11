@@ -4,13 +4,13 @@ import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 import { useGlobalSearchParams } from "expo-router";
 import { Button, LinkButton } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { ArrowUpDown, Settings } from "@/lib/icons";
+import { ArrowLeftRight, Settings } from "@/lib/icons";
 
 export const StashHeader = () => {
 	const { stashId } = useGlobalSearchParams();
 
 	return (
-		<View className="flex-row justify-between py-8">
+		<View className="flex-row justify-between items-center mt-safe py-2">
 			<Button variant="ghost">
 				<Settings className="text-foreground" />
 			</Button>
@@ -26,7 +26,7 @@ export const StashHeader = () => {
 			>
 				<Text className="text-sm font-semibold">Select a stash</Text>
 				<View className="w-2" />
-				<ArrowUpDown className="text-foreground" size={24} />
+				<ArrowLeftRight className="text-foreground" />
 			</LinkButton>
 			<ThemeToggler />
 		</View>
