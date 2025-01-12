@@ -9,12 +9,9 @@ import { StashHeader } from "@/components/screens/StashScreen/mobile/StashHeader
 import { useAccessToken } from "@/context/accessToken";
 import {
 	BottomSheetModal,
-	BottomSheetView,
 	BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Text } from "@/components/ui/text";
-import { BottomSheet } from "@/components/ui/bottomSheet";
 import { StashSelectionModalSheet } from "@/components/screens/StashScreen/mobile/StashSelectionSheet";
 
 const StashLayout = () => {
