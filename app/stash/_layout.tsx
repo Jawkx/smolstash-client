@@ -25,12 +25,16 @@ const StashLayout = () => {
 		return <ActivityIndicator size="large" />;
 	}
 
-	return Platform.OS === "web" ? <StashLayoutWeb /> : <StashLayoutMobile />;
+	return Platform.OS === "web" ? (
+		<StashNavigatorWeb />
+	) : (
+		<StashNavigatorMobile />
+	);
 };
 
 export default StashLayout;
 
-const StashLayoutWeb = () => {
+const StashNavigatorWeb = () => {
 	return (
 		<Drawer
 			drawerContent={StashDrawerContent}
@@ -47,7 +51,7 @@ const StashLayoutWeb = () => {
 	);
 };
 
-const StashLayoutMobile = () => {
+const StashNavigatorMobile = () => {
 	return (
 		<Stack screenOptions={{ headerRight: ThemeToggler }}>
 			<Stack.Screen
