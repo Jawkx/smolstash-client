@@ -15,7 +15,7 @@ const Backdrop = (props: BottomSheetBackdropProps) => {
 		<BottomSheetBackdrop
 			{...props}
 			pressBehavior="close"
-			opacity={0.5}
+			opacity={0.7}
 			appearsOnIndex={0}
 			disappearsOnIndex={-1}
 		/>
@@ -31,6 +31,7 @@ const Modal = React.forwardRef<BottomSheetModal, BottomSheetModalProps>(
 			<BottomSheetModal
 				{...props}
 				backdropComponent={Backdrop}
+				enableDynamicSizing={false}
 				ref={ref}
 				backgroundStyle={
 					isLightTheme ? styles.backgroundLight : styles.backgroundDark

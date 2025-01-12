@@ -47,7 +47,7 @@ export const StashSelectionModalSheet = React.forwardRef<
 
 	return (
 		<BottomSheet.Modal ref={ref} snapPoints={["50%"]}>
-			<BottomSheet.View className="flex-1 bg-background py-4">
+			<BottomSheet.View className="flex-1 bg-background pt-4 pb-safe-or-4">
 				<Text className="font-semibold text-xl text-center">
 					Select a stash
 				</Text>
