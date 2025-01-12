@@ -51,14 +51,16 @@ const queryClient = new QueryClient({
 	},
 });
 
-const localStoragePersister = createSyncStoragePersister({
-	storage: window.localStorage,
-});
+if (Platform.OS === "web") {
+	const localStoragePersister = createSyncStoragePersister({
+		storage: window.localStorage,
+	});
 
-persistQueryClient({
-	queryClient,
-	persister: localStoragePersister,
-});
+	persistQueryClient({
+		queryClient,
+		persister: localStoragePersister,
+	});
+}
 
 SplashScreen.preventAutoHideAsync();
 
