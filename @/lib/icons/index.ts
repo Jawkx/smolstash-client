@@ -3,7 +3,7 @@ import {
 	Sun,
 	CircleCheck,
 	CircleX,
-	ArrowUpDown,
+	ArrowLeftRight,
 	Plus,
 	Settings,
 } from "lucide-react-native";
@@ -13,8 +13,8 @@ iconWithClassName(Moon);
 iconWithClassName(Sun);
 iconWithClassName(CircleCheck);
 iconWithClassName(CircleX);
-iconWithClassName(ArrowUpDown);
+iconWithClassName(ArrowLeftRight);
 iconWithClassName(Plus);
 iconWithClassName(Settings);
 
-export { Moon, Sun, CircleCheck, CircleX, ArrowUpDown, Plus, Settings };
+export { Moon, Sun, CircleCheck, CircleX, ArrowLeftRight, Plus, Settings };

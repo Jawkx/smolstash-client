@@ -16,6 +16,7 @@
 		"@clerk/clerk-expo": "^2.3.10",
 		"@clerk/clerk-js": "^5.41.0",
 		"@expo/vector-icons": "^14.0.2",
+		"@gorhom/bottom-sheet": "^5.0.6",
 		"@react-native-async-storage/async-storage": "1.23.1",
 		"@react-navigation/drawer": "^7.1.1",
 		"@react-navigation/native": "^7.0.0",
