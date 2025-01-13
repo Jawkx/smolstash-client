@@ -10,7 +10,7 @@ import {
 } from "react-native-safe-area-context";
 import { useStashes } from "../useStashes";
 import { useGlobalSearchParams } from "expo-router";
-import { Plus } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 
 export type GlobalParam = {
 	stashId?: string;
@@ -67,7 +67,7 @@ export const StashDrawerContent = ({}: DrawerContentComponentProps) => {
 					<View className="items-end px-2">
 						<Button variant="outline" size="sm" className="flex-row">
 							<Text className="pr-1.5">Add Stash</Text>
-							<Plus className="text-primary" size={20} />
+							<Icon.Plus className="text-primary" size={20} />
 						</Button>
 					</View>
 				</>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Moon, Sun } from "@lib/icons";
+import { Icon } from "@lib/icons";
 
 import { useColorScheme } from "@/lib/useColorScheme";
 
@@ -9,9 +9,9 @@ export const ThemeToggler = () => {
 	return (
 		<Button variant="link" onPress={toggleColorScheme}>
 			{colorScheme === "dark" ? (
-				<Moon className="text-foreground" />
+				<Icon.Moon className="text-foreground" />
 			) : (
-				<Sun className="text-foreground" />
+				<Icon.Sun className="text-foreground" />
 			)}
 		</Button>
 	);

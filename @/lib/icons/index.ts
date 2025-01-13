@@ -19,7 +19,7 @@ iconWithClassName(Plus);
 iconWithClassName(Settings);
 iconWithClassName(ChevronDown);
 
-export {
+export const Icon = {
 	Moon,
 	Sun,
 	CircleCheck,

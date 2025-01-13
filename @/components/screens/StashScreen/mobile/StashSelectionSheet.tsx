@@ -13,7 +13,7 @@ import { useGlobalSearchParams, useRouter } from "expo-router";
 import { BottomSheet } from "@/components/ui/bottomSheet";
 // use only as ref
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { CircleCheck } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 
 interface StashSelectionModalProps {
 	handleDismissModal: () => void;
@@ -46,7 +46,7 @@ export const StashSelectionModalSheet = React.forwardRef<
 				<Text className="font-semibold">{name}</Text>
 
 				{id === selectedStashId ? (
-					<CircleCheck className="color-foreground" />
+					<Icon.CircleCheck className="color-foreground" />
 				) : null}
 			</Button>
 		);

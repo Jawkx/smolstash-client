@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { ThemeToggler } from "@/components/reusable/ThemeToggler";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Settings } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 import { useStashInfo } from "../useStashInfo";
 import { useUrlParams } from "../useUrlParam";
 
@@ -18,7 +18,7 @@ export const StashHeader = ({ handleOpenSelectionSheet }: StashHeaderProps) => {
 	return (
 		<View className="flex-row justify-between items-center mt-safe py-2">
 			<Button variant="ghost">
-				<Settings className="text-foreground" />
+				<Icon.Settings className="text-foreground" />
 			</Button>
 
 			<Button
@@ -41,7 +41,7 @@ export const StashHeader = ({ handleOpenSelectionSheet }: StashHeaderProps) => {
 
 				<View className="w-2" />
 
-				<ChevronDown className="text-foreground" />
+				<Icon.ChevronDown className="text-foreground" />
 			</Button>
 			<ThemeToggler />
 		</View>
