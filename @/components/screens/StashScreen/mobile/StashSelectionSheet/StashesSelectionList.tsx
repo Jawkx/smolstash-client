@@ -1,28 +1,20 @@
 import React from "react";
-import {
-	ActivityIndicator,
-	FlatList,
-	ListRenderItem,
-	View,
-} from "react-native";
-import { useStashes } from "../useStashes";
+import { ActivityIndicator, FlatList, ListRenderItem } from "react-native";
+import { useStashes } from "../../useStashes";
 import { Stash } from "@/model";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { BottomSheet } from "@/components/ui/bottomSheet";
-// use only as ref
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Icon } from "@/lib/icons";
 
-interface StashSelectionModalProps {
+interface StashSelectionListProps {
 	handleDismissModal: () => void;
 }
 
-export const StashSelectionModalSheet = React.forwardRef<
-	BottomSheetModal,
-	StashSelectionModalProps
->(({ handleDismissModal }, ref) => {
+export const StashSelectionList = ({
+	handleDismissModal,
+}: StashSelectionListProps) => {
 	const { stashId: selectedStashId } = useGlobalSearchParams();
 	const { data: stashes, isLoading } = useStashes();
 	const router = useRouter();
@@ -53,29 +45,22 @@ export const StashSelectionModalSheet = React.forwardRef<
 	};
 
 	return (
-		<BottomSheet.Modal ref={ref} snapPoints={["50%"]}>
-			<BottomSheet.View className="flex-1 bg-background pt-4 pb-safe-or-4">
-				<Text className="font-semibold text-xl text-center">
-					Select a stash
-				</Text>
+		<BottomSheet.View className="flex-1">
+			<Text className="text-muted-foreground font-semibold text-center">
+				Select a stash
+			</Text>
 
-				{isLoading ? (
-					<ActivityIndicator size="large" className="flex-1" />
-				) : (
-					<View className="flex-1 px-4 py-4">
-						<FlatList<Stash>
-							data={stashes}
-							renderItem={renderStashItem}
-							className="w-full"
-						/>
-						<Button className="mt-4">
-							<Text>Create new stash</Text>
-						</Button>
-					</View>
-				)}
-			</BottomSheet.View>
-		</BottomSheet.Modal>
+			{isLoading ? (
+				<ActivityIndicator size="large" className="flex-1" />
+			) : (
+				<BottomSheet.View className="flex-1  py-4">
+					<FlatList<Stash>
+						data={stashes}
+						renderItem={renderStashItem}
+						className="w-full"
+					/>
+				</BottomSheet.View>
+			)}
+		</BottomSheet.View>
 	);
-});
-
-StashSelectionModalSheet.displayName = "heh";
+};

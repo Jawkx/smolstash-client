@@ -58,16 +58,23 @@ const StashNavigatorWeb = () => {
 };
 
 const StashNavigatorMobile = () => {
+	const [isAddingStash, setIsAddingStash] = React.useState(false);
+
 	const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
-	// callbacks
 	const handlePresentModalPress = React.useCallback(() => {
+		setIsAddingStash(false);
 		bottomSheetModalRef.current?.present();
 	}, []);
 
 	const handleDismissModal = React.useCallback(() => {
+		setIsAddingStash(false);
 		bottomSheetModalRef.current?.close();
 	}, []);
+
+	const handleAddingStash = () => {
+		setIsAddingStash(true);
+	};
 
 	return (
 		<GestureHandlerRootView>
@@ -91,13 +98,15 @@ const StashNavigatorMobile = () => {
 									handleOpenSelectionSheet={handlePresentModalPress}
 								/>
 							),
-							animation: "default",
+							animation: "fade_from_bottom",
 						}}
 					/>
 				</Stack>
 				<StashSelectionModalSheet
 					ref={bottomSheetModalRef}
+					handleAddingStash={handleAddingStash}
 					handleDismissModal={handleDismissModal}
+					isAddingStash={isAddingStash}
 				/>
 			</BottomSheetModalProvider>
 		</GestureHandlerRootView>

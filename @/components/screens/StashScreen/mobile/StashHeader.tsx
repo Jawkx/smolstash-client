@@ -13,7 +13,7 @@ interface StashHeaderProps {
 export const StashHeader = ({ handleOpenSelectionSheet }: StashHeaderProps) => {
 	const { stashId } = useUrlParams();
 
-	const { data: stashInfo, isLoading } = useStashInfo(stashId);
+	const { data: stashInfo, isLoading, isError, error } = useStashInfo(stashId);
 
 	return (
 		<View className="flex-row justify-between items-center mt-safe py-2">
