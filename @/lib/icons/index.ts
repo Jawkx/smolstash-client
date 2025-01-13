@@ -6,6 +6,7 @@ import {
 	ArrowLeftRight,
 	Plus,
 	Settings,
+	ChevronDown,
 } from "lucide-react-native";
 import { iconWithClassName } from "./iconWithClassName";
 
@@ -16,5 +17,15 @@ iconWithClassName(CircleX);
 iconWithClassName(ArrowLeftRight);
 iconWithClassName(Plus);
 iconWithClassName(Settings);
+iconWithClassName(ChevronDown);
 
-export { Moon, Sun, CircleCheck, CircleX, ArrowLeftRight, Plus, Settings };
+export {
+	Moon,
+	Sun,
+	CircleCheck,
+	CircleX,
+	ArrowLeftRight,
+	Plus,
+	Settings,
+	ChevronDown,
+};

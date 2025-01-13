@@ -9,20 +9,21 @@ import { useStashes } from "../useStashes";
 import { Stash } from "@/model";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { useRouter } from "expo-router";
+import { useGlobalSearchParams, useRouter } from "expo-router";
 import { BottomSheet } from "@/components/ui/bottomSheet";
 // use only as ref
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { CircleCheck } from "@/lib/icons";
 
 interface StashSelectionModalProps {
-	selectedStashId: string | null;
 	handleDismissModal: () => void;
 }
 
 export const StashSelectionModalSheet = React.forwardRef<
 	BottomSheetModal,
 	StashSelectionModalProps
->(({ selectedStashId, handleDismissModal }, ref) => {
+>(({ handleDismissModal }, ref) => {
+	const { stashId: selectedStashId } = useGlobalSearchParams();
 	const { data: stashes, isLoading } = useStashes();
 	const router = useRouter();
 
@@ -30,7 +31,9 @@ export const StashSelectionModalSheet = React.forwardRef<
 		const { name, id } = item;
 
 		const handlePressItem = () => {
-			router.replace(`/stash/${id}`);
+			if (id !== selectedStashId) {
+				router.replace(`/stash/${id}`);
+			}
 			handleDismissModal();
 		};
 
@@ -40,7 +43,11 @@ export const StashSelectionModalSheet = React.forwardRef<
 				onPress={handlePressItem}
 				className={`flex-row items-center justify-between w-full ${id === selectedStashId ? "bg-muted" : ""}`}
 			>
-				<Text>{name}</Text>
+				<Text className="font-semibold">{name}</Text>
+
+				{id === selectedStashId ? (
+					<CircleCheck className="color-foreground" />
+				) : null}
 			</Button>
 		);
 	};
@@ -55,7 +62,7 @@ export const StashSelectionModalSheet = React.forwardRef<
 				{isLoading ? (
 					<ActivityIndicator size="large" className="flex-1" />
 				) : (
-					<View className="flex-1 px-4">
+					<View className="flex-1 px-4 py-4">
 						<FlatList<Stash>
 							data={stashes}
 							renderItem={renderStashItem}

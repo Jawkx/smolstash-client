@@ -91,13 +91,13 @@ const StashNavigatorMobile = () => {
 									handleOpenSelectionSheet={handlePresentModalPress}
 								/>
 							),
+							animation: "default",
 						}}
 					/>
 				</Stack>
 				<StashSelectionModalSheet
 					ref={bottomSheetModalRef}
 					handleDismissModal={handleDismissModal}
-					selectedStashId={null}
 				/>
 			</BottomSheetModalProvider>
 		</GestureHandlerRootView>
