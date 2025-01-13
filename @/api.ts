@@ -1,5 +1,5 @@
 import { fetch } from "expo/fetch";
-import { Stash } from "./model";
+import { Stash, StashSchema } from "./model";
 
 const rootUrl = process.env.EXPO_PUBLIC_API_ROOT;
 
@@ -22,11 +22,7 @@ const getStashes = async (accessToken: string): Promise<GetStashesResponse> => {
 	}
 
 	const data = await response.json();
-	if (!data) {
-		throw new Error("Invalid response format");
-	}
-
-	return data;
+	return StashSchema.array().parse(data);
 };
 
 type GetStashInfoRes = Stash;
@@ -47,12 +43,7 @@ const getStashInfo = async (
 	}
 
 	const data = await response.json();
-
-	if (!data) {
-		throw new Error("Invalid response format");
-	}
-
-	return data;
+	return StashSchema.parse(data);
 };
 
 export const CoreApi = {
