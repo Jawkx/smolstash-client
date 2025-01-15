@@ -25,20 +25,19 @@ const Backdrop = (props: BottomSheetBackdropProps) => {
 
 const Modal = React.forwardRef<BottomSheetModal, BottomSheetModalProps>(
 	(props, ref) => {
-		const { colorScheme } = useColorScheme();
-		const isLightTheme = colorScheme === "light";
+		const { themeColors } = useColorScheme();
+
+		const backgroundColor = themeColors.background;
 
 		return (
 			<BottomSheetModal
 				{...props}
 				backdropComponent={Backdrop}
 				ref={ref}
-				backgroundStyle={
-					isLightTheme ? styles.backgroundLight : styles.backgroundDark
-				}
-				handleIndicatorStyle={
-					isLightTheme ? styles.indicatorLight : styles.indicatorDark
-				}
+				backgroundStyle={{
+					backgroundColor: backgroundColor,
+				}}
+				handleIndicatorStyle={{ backgroundColor: themeColors.foreground }}
 			/>
 		);
 	},
@@ -72,18 +71,3 @@ export const BottomSheet = {
 	View: BottomSheetView,
 	Input,
 };
-
-const styles = StyleSheet.create({
-	indicatorDark: {
-		backgroundColor: "hsl(0 0% 100%)",
-	},
-	indicatorLight: {
-		backgroundColor: "hsl(240 10% 3.9%)",
-	},
-	backgroundLight: {
-		backgroundColor: "hsl(0 0% 100%)",
-	},
-	backgroundDark: {
-		backgroundColor: "hsl(240 10% 3.9%)",
-	},
-});
