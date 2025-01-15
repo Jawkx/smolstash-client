@@ -46,7 +46,7 @@ export const StashSelectionList = ({
 
 	return (
 		<BottomSheet.View className="flex-1">
-			<Text className="text-muted-foreground font-semibold text-center">
+			<Text className="text-muted-foreground font-medium text-center">
 				Select a stash
 			</Text>
 

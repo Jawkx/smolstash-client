@@ -34,24 +34,39 @@ export const StashSelectionModalSheet = React.forwardRef<
 			enableDynamicSizing={false}
 			android_keyboardInputMode="adjustResize"
 		>
-			<BottomSheet.View className="flex-1 bg-background mb-safe py-5 px-4">
+			<BottomSheet.View className="flex-1 bg-background mb-safe pt-5 pb-1 px-4">
 				{!isAddingStash ? (
-					<StashSelectionList handleDismissModal={handleDismissModal} />
+					<>
+						<StashSelectionList handleDismissModal={handleDismissModal} />
+						<Button
+							className="mt-4"
+							variant="secondary"
+							onPress={handleAddingStashFocusInput}
+						>
+							<Text>Create new stash</Text>
+						</Button>
+					</>
 				) : (
-					<BottomSheet.Input
-						ref={inputRef}
-						autoFocus
-						placeholder="Stash name"
-					/>
+					<>
+						<Text className="text-muted-foreground text-center">
+							Create new stash
+						</Text>
+						<View className="h-3" />
+						<BottomSheet.Input
+							ref={inputRef}
+							autoFocus
+							placeholder="Stash name"
+						/>
+						<Button
+							className="mt-4"
+							variant="secondary"
+							onPress={() => console.log("pressed")}
+						>
+							<Text>Create new stash</Text>
+						</Button>
+					</>
 				)}
 
-				<Button
-					className="mt-4"
-					variant="secondary"
-					onPress={handleAddingStashFocusInput}
-				>
-					<Text>Create new stash</Text>
-				</Button>
 				<View className="h-4" />
 			</BottomSheet.View>
 		</BottomSheet.Modal>
