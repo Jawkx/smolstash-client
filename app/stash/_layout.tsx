@@ -15,17 +15,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StashSelectionModalSheet } from "@/components/screens/StashScreen/mobile/StashSelectionSheet";
 
 const StashLayout = () => {
-	const { getToken, isSignedIn } = useAuth();
+	const { isSignedIn } = useAuth();
 
-	const { accessToken, setAccessToken } = useAccessToken();
-
-	React.useEffect(() => {
-		if (isSignedIn) {
-			getToken().then((token) => {
-				if (token) setAccessToken(token);
-			});
-		}
-	}, []);
+	const { accessToken } = useAccessToken();
 
 	if (isSignedIn && !accessToken) {
 		return <ActivityIndicator size="large" />;
