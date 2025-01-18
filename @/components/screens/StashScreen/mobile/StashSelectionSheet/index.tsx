@@ -7,6 +7,7 @@ import { BottomSheet } from "@/components/ui/bottomSheet";
 // use only as type ref
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { StashSelectionList } from "./StashesSelectionList";
+import { StashCreationForm } from "./StashCreationForm";
 
 interface StashSelectionModalProps {
 	handleDismissModal: () => void;
@@ -18,20 +19,20 @@ export const StashSelectionModalSheet = React.forwardRef<
 	BottomSheetModal,
 	StashSelectionModalProps
 >(({ handleDismissModal, isAddingStash, handleAddingStash }, ref) => {
-	const snapPoints = React.useMemo(() => [isAddingStash ? "25%" : "50%"], []);
+	const snapPoints = React.useMemo(() => ["25%", "50%"], []);
 
-	const inputRef = React.useRef<TextInput>(null);
-
-	const handleAddingStashFocusInput = () => {
-		handleAddingStash();
-		inputRef.current?.focus();
-	};
+	React.useEffect(() => {
+		if (isAddingStash) {
+		}
+	}, []);
 
 	return (
 		<BottomSheet.Modal
 			ref={ref}
 			snapPoints={snapPoints}
+			index={1}
 			enableDynamicSizing={false}
+			keyboardBehavior="interactive"
 			android_keyboardInputMode="adjustResize"
 		>
 			<BottomSheet.View className="flex-1 bg-background mb-safe pt-5 pb-1 px-4">
@@ -41,30 +42,13 @@ export const StashSelectionModalSheet = React.forwardRef<
 						<Button
 							className="mt-4"
 							variant="secondary"
-							onPress={handleAddingStashFocusInput}
+							onPress={handleAddingStash}
 						>
 							<Text>Create new stash</Text>
 						</Button>
 					</>
 				) : (
-					<>
-						<Text className="text-muted-foreground text-center">
-							Create new stash
-						</Text>
-						<View className="h-3" />
-						<BottomSheet.Input
-							ref={inputRef}
-							autoFocus
-							placeholder="Stash name"
-						/>
-						<Button
-							className="mt-4"
-							variant="secondary"
-							onPress={() => console.log("pressed")}
-						>
-							<Text>Create new stash</Text>
-						</Button>
-					</>
+					<StashCreationForm />
 				)}
 
 				<View className="h-4" />

@@ -46,7 +46,37 @@ const getStashInfo = async (
 	return StashSchema.parse(data);
 };
 
+type CreateStashRequest = {
+	name: string;
+};
+
+type CreateStashResponse = {
+	message: string;
+};
+
+const createStash = async (
+	accessToken: string,
+	opts: CreateStashRequest,
+): Promise<CreateStashResponse> => {
+	const response = await fetch(rootUrl + "/stash", {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			Accept: "application/json",
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ name: opts.name }),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	return response.json();
+};
+
 export const CoreApi = {
 	getStashes,
 	getStashInfo,
+	createStash,
 };

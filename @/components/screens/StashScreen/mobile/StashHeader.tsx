@@ -13,16 +13,12 @@ interface StashHeaderProps {
 export const StashHeader = ({ handleOpenSelectionSheet }: StashHeaderProps) => {
 	const { stashId } = useUrlParams();
 
-	const { data: stashInfo, isLoading, isError, error } = useStashInfo(stashId);
+	const { data: stashInfo, isLoading, isError } = useStashInfo(stashId);
 
 	return (
 		<View className="flex-row justify-between items-center mt-safe py-2">
-			<Button variant="ghost">
-				<Icon.Settings className="text-foreground" />
-			</Button>
-
 			<Button
-				className="flex-row items-center"
+				className="flex-row items-center px-6"
 				variant="ghost"
 				size="lg"
 				onPress={handleOpenSelectionSheet}
@@ -39,9 +35,9 @@ export const StashHeader = ({ handleOpenSelectionSheet }: StashHeaderProps) => {
 					</Text>
 				)}
 
-				<View className="w-2" />
+				<View className="w-0.5" />
 
-				<Icon.ChevronDown className="text-foreground" />
+				<Icon.ChevronDown className="text-muted-foreground" size={20} />
 			</Button>
 			<ThemeToggler />
 		</View>

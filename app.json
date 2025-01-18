@@ -20,7 +20,8 @@
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/app-logo/adaptive-icon/foreground.png",
 				"backgroundColor": "./assets/app-logo/adaptive-icon/background.png"
-			}
+			},
+			"softwareKeyboardLayoutMode": "pan"
 		},
 		"web": {
 			"bundler": "metro",

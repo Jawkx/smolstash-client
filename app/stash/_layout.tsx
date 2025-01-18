@@ -57,6 +57,7 @@ const StashNavigatorMobile = () => {
 	const handlePresentModalPress = React.useCallback(() => {
 		setIsAddingStash(false);
 		bottomSheetModalRef.current?.present();
+		bottomSheetModalRef.current?.snapToIndex(1);
 	}, []);
 
 	const handleDismissModal = React.useCallback(() => {
@@ -66,10 +67,11 @@ const StashNavigatorMobile = () => {
 
 	const handleAddingStash = () => {
 		setIsAddingStash(true);
+		bottomSheetModalRef.current?.snapToIndex(0);
 	};
 
 	return (
-		<GestureHandlerRootView>
+		<GestureHandlerRootView style={{ flex: 1 }}>
 			<BottomSheetModalProvider>
 				<Stack screenOptions={{ headerRight: ThemeToggler }}>
 					<Stack.Screen

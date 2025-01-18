@@ -43,7 +43,7 @@ const Modal = React.forwardRef<BottomSheetModal, BottomSheetModalProps>(
 	},
 );
 
-Modal.displayName = "StyledBottomSheetModal";
+Modal.displayName = BottomSheetModal.name;
 
 const Input = React.forwardRef<
 	React.ElementRef<typeof BottomSheetTextInput>,
@@ -63,7 +63,7 @@ const Input = React.forwardRef<
 	);
 });
 
-Input.displayName = "Input";
+Input.displayName = BottomSheetTextInput.name;
 
 export const BottomSheet = {
 	Modal,
