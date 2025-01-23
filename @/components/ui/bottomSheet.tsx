@@ -8,17 +8,42 @@ import {
 	BottomSheetBackdropProps,
 	BottomSheetTextInput,
 } from "@gorhom/bottom-sheet";
-import React from "react";
-import { StyleSheet, TextInputProps } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Keyboard, TextInputProps } from "react-native";
 
 const Backdrop = (props: BottomSheetBackdropProps) => {
+	const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+	const handleDismissKeyboard = () => Keyboard.dismiss();
+
+	useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener(
+			"keyboardDidShow",
+			() => {
+				setKeyboardVisible(true);
+			},
+		);
+		const keyboardDidHideListener = Keyboard.addListener(
+			"keyboardDidHide",
+			() => {
+				setKeyboardVisible(false);
+			},
+		);
+
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
+
 	return (
 		<BottomSheetBackdrop
-			{...props}
-			pressBehavior="close"
+			pressBehavior={keyboardVisible ? "none" : "close"}
+			onPress={keyboardVisible ? handleDismissKeyboard : undefined}
 			opacity={0.7}
 			appearsOnIndex={0}
 			disappearsOnIndex={-1}
+			{...props}
 		/>
 	);
 };
