@@ -21,7 +21,8 @@ export const StashSelectionModalSheet = React.forwardRef<
 >(({ handleDismissModal }, ref) => {
 	const { themeColors } = useColorScheme();
 	const { stashId: selectedStashId } = useGlobalSearchParams();
-	const { data: stashes, isLoading } = useStashes();
+	const { data: stashes, isLoading, isRefetching, refetch } = useStashes();
+
 	const router = useRouter();
 
 	const snapPoints = React.useMemo(() => ["50%"], []);
@@ -73,8 +74,10 @@ export const StashSelectionModalSheet = React.forwardRef<
 					/>
 				) : (
 					<BottomSheet.View className="flex-1  py-4">
-						<FlatList<Stash>
+						<BottomSheet.FlatList<Stash>
 							data={stashes}
+							refreshing={isRefetching}
+							onRefresh={refetch}
 							renderItem={renderStashItem}
 							className="w-full"
 						/>
