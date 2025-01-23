@@ -7,6 +7,7 @@ import {
 	BottomSheetBackdrop,
 	BottomSheetBackdropProps,
 	BottomSheetTextInput,
+	BottomSheetFlatList,
 } from "@gorhom/bottom-sheet";
 import React, { useEffect, useState } from "react";
 import { Keyboard, TextInputProps } from "react-native";
@@ -95,4 +96,5 @@ export const BottomSheet = {
 	Backdrop,
 	View: BottomSheetView,
 	Input,
+	FlatList: BottomSheetFlatList,
 };
