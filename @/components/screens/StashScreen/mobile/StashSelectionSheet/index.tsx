@@ -15,22 +15,22 @@ interface StashSelectionModalProps {
 	isAddingStash: boolean;
 }
 
+export enum StashSheetIndex {
+	CreateStash = 0,
+	SelectStash = 1,
+}
+
 export const StashSelectionModalSheet = React.forwardRef<
 	BottomSheetModal,
 	StashSelectionModalProps
 >(({ handleDismissModal, isAddingStash, handleAddingStash }, ref) => {
 	const snapPoints = React.useMemo(() => ["25%", "50%"], []);
 
-	React.useEffect(() => {
-		if (isAddingStash) {
-		}
-	}, []);
-
 	return (
 		<BottomSheet.Modal
 			ref={ref}
 			snapPoints={snapPoints}
-			index={1}
+			index={StashSheetIndex.SelectStash}
 			enableDynamicSizing={false}
 			keyboardBehavior="interactive"
 			android_keyboardInputMode="adjustResize"

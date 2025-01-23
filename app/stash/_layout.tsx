@@ -12,7 +12,10 @@ import {
 	BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { StashSelectionModalSheet } from "@/components/screens/StashScreen/mobile/StashSelectionSheet";
+import {
+	StashSelectionModalSheet,
+	StashSheetIndex,
+} from "@/components/screens/StashScreen/mobile/StashSelectionSheet";
 
 const StashLayout = () => {
 	const { isSignedIn } = useAuth();
@@ -57,7 +60,6 @@ const StashNavigatorMobile = () => {
 	const handlePresentModalPress = React.useCallback(() => {
 		setIsAddingStash(false);
 		bottomSheetModalRef.current?.present();
-		bottomSheetModalRef.current?.snapToIndex(1);
 	}, []);
 
 	const handleDismissModal = React.useCallback(() => {
@@ -67,7 +69,7 @@ const StashNavigatorMobile = () => {
 
 	const handleAddingStash = () => {
 		setIsAddingStash(true);
-		bottomSheetModalRef.current?.snapToIndex(0);
+		bottomSheetModalRef.current?.snapToIndex(StashSheetIndex.CreateStash);
 	};
 
 	return (
