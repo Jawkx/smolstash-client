@@ -8,7 +8,7 @@ import { useGlobalSearchParams, useRouter } from "expo-router";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { Icon } from "@/lib/icons";
-import { ActivityIndicator, FlatList, ListRenderItem } from "react-native";
+import { ActivityIndicator, ListRenderItem } from "react-native";
 import { useColorScheme } from "@/lib/useColorScheme";
 
 interface StashSelectionModalProps {
